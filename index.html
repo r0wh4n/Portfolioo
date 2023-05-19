@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Rohan Pandey</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,200,200italic" rel="stylesheet" type="text/css" />
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<link rel="icon" href="favicon.ico">
+		<link href="clock.css" rel="stylesheet" />
+		<noscript>
+			<link href="class.css" rel="stylesheet" type="text/css" />
+		</noscript>
+	</head>
+	<body class="is-loading">
+		<div id="wrapper">
+			<div id="backgroundclock">
+				<!-- svg making up the clock -->
+	<svg viewBox="0 0 100 100" style="width: 50%; height: 50%;">
+		<defs>
+			<!-- filters describing the shadows, applied on the larger and smaller shapes -->
+			<filter id="shadow-large">
+				<feDropShadow dx="0" dy="0" stdDeviation="4"/>
+			</filter>
+			<filter id="shadow-small">
+					<feDropShadow dx="0" dy="0" stdDeviation="0.2"/>
+			</filter>
+	
+			<!-- mask used to cut out a sliver of the overlaid circle -->
+			<mask
+				id="mask">
+				<g transform="translate(50 50)">
+					<!-- starting at -15, incrementing by 30 for each hour -->
+					<g
+						class="hours" transform="rotate(-15)">
+						<circle
+							cx="0"
+							cy="0"
+							r="50"
+							fill="#fff">
+						</circle>
+						<path
+							d="M 0 -50 v 50 l 28.86 -50"
+							fill="#000">
+						</path>
+					</g>
+				</g>
+			</mask>
+		</defs>
+	
+		<!-- circle making up the bottom of the clock -->
+		<circle
+			cx="50"
+			cy="50"
+			r="46"
+			fill="#303335">
+		</circle>
+	
+		<!-- circle with the accent color, overlaid before the text elements -->
+		<circle
+			cx="50"
+			cy="50"
+			r="42"
+			fill="#EA3F3F"
+			filter="url(#shadow-large)">
+		</circle>
+	
+		<!-- text elements, positioned from the center around the clock -->
+		<g
+			class="clock--face"
+			font-size="8px"
+			transform="translate(50 50)"
+			text-anchor="middle"
+			dominant-baseline="middle">
+			<!-- the elements are included through the script, at intervals of 30 degrees -->
+			<!--
+			<text
+				transform="rotate(-90) translate(35 0) rotate(90)" >
+				12
+			</text>
+	
+			<text
+				transform="rotate(-0) translate(35 0) rotate(0)" >
+				03
+			</text>
+			-->
+		</g>
+	
+		<!-- circle overlaid on the accent circle and text elements -->
+		<circle
+			mask="url(#mask)"
+			cx="50"
+			cy="50"
+			r="50"
+			fill="#303335">
+		</circle>
+	
+		<!-- smaller circle on which the hands sit -->
+		<circle
+			cx="50"
+			cy="50"
+			r="4"
+			filter="url(#shadow-small)"
+			fill="#303335">
+		</circle>
+	
+		<!-- clock's hands -->
+		<!-- centered in the clock and rotated according to the passage of time in the 0-360 range -->
+		<g
+			class="hands"
+			transform="translate(50 50)"
+			>
+			<g
+				class="minutes"
+				transform="rotate(240)"> <!-- change rotation of this group to affect both clock's hand -->
+				<path
+					fill="#fff"
+					d="M -0.4 8 h 0.8 v -33 h -0.8 z">
+				</path>
+				<circle
+					fill="#303335"
+					cx="0"
+					cy="0"
+					r="0.6">
+				</circle>
+			</g>
+	
+			<g
+				class="seconds"
+				transform="rotate(80)"> <!-- change rotation of this group to affect both clock's hand -->
+				<path
+					fill="#EA3F3F"
+					d="M -0.4 10 h 0.8 v -45 h -0.8 z">
+				</path>
+				<circle
+					stroke-width="0.4"
+					stroke="#EA3F3F"
+					fill="#303335"
+					cx="0"
+					cy="0"
+					r="0.8">
+				</circle>
+			</g>
+		</g>
+	</svg>
+	
+	<!-- div wrapping the controls to change the number of hours/minutes/seconds -->
+	<div class="controls" style="margin-top: -44rem;">
+		<div class="controls__control" data-control="hours">
+			<span class="control--hours"></span>
+		</div>
+	
+		<div class="controls__control" data-control="minutes">
+			<span class="control--minutes"></span>
+		</div>
+	
+		<div class="controls__control" data-control="seconds">
+			<span class="control--seconds"></span>
+		</div>
+	</div>
+</div>
+			<div id="main">
+				<div class="inner">
+					<header id="header">
+						<ul class="icons" id="icons01" align="center" class="socialbtns">
+							<li><a href="Resume.pdf" class="n04 fa fa-lg fa-file-text"></a></li>
+							<li><a href="https://github.com/r0wh4n" class="n01 fa fa-lg fa-github"></a></li>
+							<li><a href="https://www.linkedin.com/in/r0wh4n/" class="n02 fa fa-lg fa-linkedin"></a></li>
+							<li><a href="mailto:rohanpandey228@gmail.com" class="n03 fa fa-lg fa-envelope"></a></li>
+						</ul>
+						<hr id="divider01" />
+					</header>
+					<button id="playButton"></button>
+<audio id="myAudio" loop>
+  <source src="rain_city.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  var audio = document.getElementById('myAudio');
+  var playButton = document.getElementById('playButton');
+
+  // Function to handle button click
+  function handleButtonClick() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+
+  // Add event listener to the play button
+  playButton.addEventListener('click', handleButtonClick);
+</script>
+
+					<section id="home-section">
+						<h1 id="text03">Rohan Pandey</h1>
+						<hr id="divider02" />
+						<p id="text04">Coder  •  Gamer  •  Fitness</p>
+					</section>
+					<section id="about-section">
+						<p id="text05">About</p>
+						<p id="text06"><span>An enthusiastic fresher who is a self-starter and capable to use technical skills for the betterment of the organization.Proficiency in Frontend and looking forward to work in a competitive environment that enhances overall learning.</span><br /> <br /> <span>
+						</p>
+					</section>
+					<section id="work-section">
+						<p id="text01">Work</p>
+						<p id="text07"><span><strong>Languages & Framework :</strong> Python (Flask) ,<br>HTML (Bootstrap) , CSS (Bootstrap & Tailwind) , Database Management Systems (MongoDB/SQL) , Javascript (React,Node,Angular,Next,Express,Vue) , Advanced Database Management (PostgreSQL) , Docker , Ruby (RubyonRails) , Wordpress</span> 
+							</br> </br> <span><strong>All Projects</strong> can be found <u><a href="https://github.com/r0wh4n?tab=repositories">here</a></u>.</span>
+						</p>
+					</section>
+					<footer id="footer">
+						<hr id="divider03" />
+						<ul class="buttons" id="buttons01">
+							<li><a href="#home" class="button n01">Home</a></li>
+							<li><a href="#about" class="button n02">About</a></li>
+							<li><a href="#work" class="button n03">Work</a></li>
+						</ul>
+					</footer>
+				</div>
+			</div>
+		</div>
+		
+		<script src="index.js"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js'></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+		<script src="script.js"></script>
+		<script src="clock.js"></script>
+	</body>
+</html>
